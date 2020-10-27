@@ -1,6 +1,3 @@
-
-/* Crear estructura de la base de datos*/
-
 CREATE DATABASE sistema;
 USE sistema;
 
@@ -77,25 +74,49 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE consult_client (format VARCHAR(10))
+CREATE PROCEDURE consult_client (view VARCHAR(10), order_ip VARCHAR(5))
 BEGIN
-    SELECT * FROM clients  WHERE CASE 
-        WHEN format='all' THEN  status='Activo' or status='Inactivo'
-        WHEN format='debtors' THEN  status=format
-        ELSE status=format
-    END ORDER BY ip_adress;
+    IF order_ip='asc' THEN
+        SELECT * FROM clients  WHERE CASE 
+            WHEN view='all' THEN  status='Activo' or status='Inactivo'
+            WHEN view='debtors' THEN  status=view
+            ELSE status=view
+        END ORDER BY ip_adress ASC;
+    ELSE
+        SELECT * FROM clients  WHERE CASE 
+            WHEN view='all' THEN  status='Activo' or status='Inactivo'
+            WHEN view='debtors' THEN  status=view
+            ELSE status=view
+        END ORDER BY ip_adress DESC;
+    END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE search_client (string VARCHAR(100))
+CREATE PROCEDURE search_client (view VARCHAR(10), string VARCHAR(50))
 BEGIN
-    SELECT * FROM clients  WHERE name LIKE string ORDER BY name;
+    SELECT * FROM clients  WHERE CASE 
+        WHEN view='all' THEN  (status='Activo' or status='Inactivo')
+        WHEN view='debtors' THEN  status=view
+        ELSE status=view
+    END AND name LIKE string ORDER BY ip_adress;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE edit_status (idP VARCHAR(10),statusP VARCHAR(10), dateP VARCHAR(10))
+BEGIN
+    UPDATE clients SET status=statusP WHERE id=idP;
+    
+    IF statusP='Inactivo' THEN
+        CALL add_history ('Corte',dateP,'0',idP);
+    ELSE
+        CALL add_history ('Reactivado',dateP,'0',idP);
+    END IF;
 END $$
 DELIMITER ;
 
 /* Procedimientos almacenados para la tabla de pagos*/
-
 
 DELIMITER $$
 CREATE PROCEDURE upload_payment (idP VARCHAR(10),yearP VARCHAR(10),monthP VARCHAR(10))
@@ -105,24 +126,10 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE upload_xname (nameP VARCHAR(100))
-BEGIN
-    SELECT id FROM clients WHERE name=nameP;
-END $$
-DELIMITER ;
-
-DELIMITER $$
 CREATE PROCEDURE add_payment (yearP VARCHAR(10),monthP VARCHAR(10),
 paymentP VARCHAR(10), dateP VARCHAR(10),id_relP VARCHAR(10))
 BEGIN
     INSERT INTO payments VALUES(null,yearP,monthP,paymentP,dateP,id_relP);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE rel_client ()
-BEGIN
-    SELECT MAX(id) FROM clients;
 END $$
 DELIMITER ;
 
@@ -157,11 +164,12 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE upload_history (idP VARCHAR(10))
+CREATE PROCEDURE last_client ()
 BEGIN
-    SELECT * FROM datos_historial WHERE id=idP;
+    SELECT id FROM clients ORDER BY id DESC LIMIT 1;
 END $$
 DELIMITER ;
+
 
 /* crear un usuario */
 INSERT INTO login VALUES (null,'admin','');
