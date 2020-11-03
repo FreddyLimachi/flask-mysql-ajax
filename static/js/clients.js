@@ -82,7 +82,7 @@ $(document).ready(() => {
         $(".modal-header").css( "background-color", "#D42929");
         $(".modal-header").css( "color", "white" );
         $(".modal-title").text(name);
-        $('#modal_status').modal('show');
+        $('#client_status_modal').modal('show');
 
         $.ajax({
             url: 'upload_client',
@@ -101,7 +101,7 @@ $(document).ready(() => {
         status_date = $('#status_date').val(); 
         
         $.ajax({
-            url: 'edit_status',
+            url: 'update_status',
             method: 'POST',
             data : {
                 id: client_id,
@@ -109,7 +109,7 @@ $(document).ready(() => {
                 status_date : status_date,
             },   
             success: () => {
-                $('#modal_status').modal('hide');
+                $('#client_status_modal').modal('hide');
                 show_message('Estado actualizado correctamente');
                 client_table();	
             }
@@ -175,12 +175,12 @@ $(document).ready(() => {
         $(".modal-header").css( "background-color", "#D42929");
         $(".modal-header").css( "color", "white" );
         $(".modal-title").text("Nuevo cliente");
-        $('#modal_client').modal('show');	    
+        $('#client_modal').modal('show');	    
     });
 
     // Editar cliente
     $(document).on("click", ".edit-client", function(){		        
-        create_update = 'edit_client';//editar
+        create_update = 'update_client';//editar
         row = $(this).closest("tr");	        
         client_id = parseInt(row.find('td:eq(0)').text()); //capturo el ID
         $.ajax({
@@ -200,7 +200,7 @@ $(document).ready(() => {
         $(".modal-header").css("background-color", "#D42929");
         $(".modal-header").css("color", "white" );
         $(".modal-title").text("Editar Cliente");		
-        $('#modal_client').modal('show');		   
+        $('#client_modal').modal('show');		   
     });
 
     // Enviar datos del formulario de clientes al servidor
@@ -223,7 +223,7 @@ $(document).ready(() => {
                     client_table();
                 }
             });			        
-        $('#modal_client').modal('hide');
+        $('#client_modal').modal('hide');
         if (create_update=='add_client'){
             show_message('Cliente registrado satisfactoriamente');
         } else {

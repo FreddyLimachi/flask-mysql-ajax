@@ -122,7 +122,7 @@ $(document).ready(() => {
         $(".modal-header").css("background-color", "#D42929");
         $(".modal-header").css("color", "white" );
         $(".modal-title").text("Editar historial");		
-        $('#modal_history').modal('show');		   
+        $('#history_modal').modal('show');		   
     });
 
 
@@ -152,7 +152,7 @@ $(document).ready(() => {
         payment_date = $.trim($('#date_edit').val());
         payment = $.trim($('#payment_edit').val());    
             $.ajax({
-                url: 'edit_history',
+                url: 'update_history',
                 method: 'POST',
                 data : {
                     history_id: history_id,
@@ -164,7 +164,7 @@ $(document).ready(() => {
                     history_table();
                 }
             });			        
-        $('#modal_history').modal('hide');
+        $('#history_modal').modal('hide');
         show_message('Registro actualizado satisfactoriamente');	
     });
 

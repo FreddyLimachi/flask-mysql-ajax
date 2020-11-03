@@ -15,6 +15,7 @@ class Data(Connection):
             return True
         self.CloseConnection(cnx)
         return False
+
     
     def ActualizarContra(self,password): #Cambiar contraseña de usuario
         cnx=self.Connect()
@@ -22,6 +23,7 @@ class Data(Connection):
         Cursor.execute("UPDATE login SET password='{}' WHERE user='admin'".format(password))
         cnx.commit()
         self.CloseConnection(cnx)
+
     
     def ConsultarLogin(self,user,password): #Consultar Usuario y contraseña de la base de datos
         cnx=self.Connect()
@@ -45,6 +47,7 @@ class Data(Connection):
         cnx.commit()
         self.CloseConnection(cnx)
 
+
     def ConsultarCliente(self, view, order):
         cnx = self.Connect()
         Cursor = cnx.cursor()
@@ -52,6 +55,7 @@ class Data(Connection):
         Lista = Cursor.fetchall()
         self.CloseConnection(cnx)
         return Lista
+
     
     def CargarCliente(self, id): #Obtener el cliente determinado
         cnx = self.Connect()
@@ -61,6 +65,7 @@ class Data(Connection):
         self.CloseConnection(cnx)
         return Lista
 
+
     def ActualizarCliente(self, id, AN, IP, Direc, Telef, Monto, Megas, FI):
         cnx = self.Connect()
         Cursor = cnx.cursor()
@@ -68,6 +73,7 @@ class Data(Connection):
             id, AN, IP, Direc, Telef, Monto, Megas, FI))
         cnx.commit()
         self.CloseConnection(cnx)
+
     
     def BuscarCliente(self,view,name):
         cnx=self.Connect()
@@ -76,6 +82,7 @@ class Data(Connection):
         Lista=Cursor.fetchall()
         self.CloseConnection(cnx)
         return Lista
+
     
     def EliminarCliente(self, id):
         cnx = self.Connect()
@@ -83,6 +90,7 @@ class Data(Connection):
         Cursor.execute("CALL delete_client ('{}')".format(id))
         cnx.commit()
         self.CloseConnection(cnx)
+
     
     def ActualizarEstado(self, id, status, date): #Actualizar estado del cliete ('activo','inactivo')
         cnx = self.Connect()
@@ -91,6 +99,7 @@ class Data(Connection):
         cnx.commit()
         self.CloseConnection(cnx)
     
+
     def UltimoCliente(self): #Obtener el ultimo cliente registrado
         cnx = self.Connect()
         Cursor = cnx.cursor()
@@ -111,6 +120,7 @@ class Data(Connection):
         cnx.commit()
         self.CloseConnection(cnx)
     
+
     def ConsultarHistorial(self, id):
         cnx = self.Connect()
         Cursor = cnx.cursor()
@@ -119,6 +129,7 @@ class Data(Connection):
         self.CloseConnection(cnx)
         return Lista
     
+
     def ActualizarHistorial(self, id, description, date, payment):
         cnx = self.Connect()
         Cursor = cnx.cursor()
@@ -126,6 +137,7 @@ class Data(Connection):
             id, description, date, payment))
         cnx.commit()
         self.CloseConnection(cnx)
+    
     
     def EliminarHistorial(self, id):
         cnx = self.Connect()

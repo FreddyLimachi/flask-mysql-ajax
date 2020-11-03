@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internet Test</title>
+    <title>Test | Error 500</title>
     <link rel="shorcut icon" href="{{ url_for('static',filename='img/logo.png') }}">
 </head>
 <body>
 
-    <h1>Esta pagina no existe</h1>
-    <p><a href="/">ir a inicio</a></p>
+    <h1>Error interno del servidor</h1>
+    <p><a href="{{ url_for('pages.clients')}}">Regresar a inicio</a></p>
     
 </body>
 </html>

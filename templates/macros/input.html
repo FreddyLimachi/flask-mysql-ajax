@@ -1,0 +1,9 @@
+
+{% macro input_with_label (length, text, id, type='text') %}
+    <div class="col-lg-{{length}}">
+        <div class="form-group">
+            <label for="" class="col-form-label">{{text}}</label>
+            <input type="{{type}}" class="form-control" id="{{id}}" required>
+        </div>
+    </div>
+{% endmacro %}

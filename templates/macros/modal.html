@@ -1,0 +1,76 @@
+{% from "macros/input.html" import input_with_label %}
+
+ <!-- Ventana emergente para registrar o actualizar datos -->
+ {% macro show_modal (modal_id, form_id, size = 'modal-dialog') %}
+ <div class="modal fade" id="{{modal_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="{{size}}" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="exampleModalLabel"></h5>
+                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+         
+         <!-- Formulario para registrar o actualizar datos -->
+         <form id="{{form_id}}">    
+             <div class="modal-body">
+                 <div class="row">
+                     {% if modal_id == 'client_modal' %}
+                         {{ client_modal ()}}
+                     {% elif modal_id == 'history_modal' %}
+                         {{ history_modal ()}}
+                     {% elif modal_id == 'client_status_modal' %}
+                         {{ client_status_modal() }}
+                     {% endif %}
+                     
+                 </div>                
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                 <button type="submit" class="btn btn-dark">Guardar</button>
+             </div>
+         </form>    
+         </div>
+     </div>
+ </div>
+
+{% endmacro %}
+
+
+{% macro client_modal() %}
+    
+    {{ input_with_label ('6','Apellidos y Nombres','name') }}
+    {{ input_with_label ('6','Dirección IP','ip_adress') }}
+    {{ input_with_label ('6','Dirección','home_adress') }}
+    {{ input_with_label ('6','Telefono','phone') }}
+    {{ input_with_label ('3','Mensual','month_payment') }}
+    {{ input_with_label ('3','Mbps','mbps', 'number') }}
+    {{ input_with_label ('6','Fecha de instalación','install_date') }}
+   
+{% endmacro %}
+
+{% macro history_modal() %}
+    <!-- Ventana emergente para modificar un registro del historial -->
+    {{ input_with_label ('12','Descripción','description') }}
+    {{ input_with_label ('6','Fecha','date_edit') }}
+    {{ input_with_label ('6','Monto','payment_edit') }}                            
+
+{% endmacro %}
+
+{% macro client_status_modal() %}
+    <!-- Ventana emergente para actualizar el estado de un cliente -->
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label for="" class="col-form-label">Cambiar estado</label>
+            <select class="form-control" id="status">
+                <option>Activo</option>
+                <option>Inactivo</option>
+            </select>
+        </div>
+    </div>
+
+    {{ input_with_label ('12','Fecha','status_date') }}
+            
+          
+{% endmacro %}
