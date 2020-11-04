@@ -41,7 +41,7 @@ def update_password(): # Validar contraseña actual
         else:
             data.ActualizarContra(new_pass) # Actualizar contraseña
             session.pop('_flashes', None) # Cerrar sessión
-            return redirect(url_for('pages.close_session')) # y volver a logearse
+            return redirect(url_for('sessions.close_session')) # y volver a logearse
             
     else:
         flash('Contraseña actual incorrecta')

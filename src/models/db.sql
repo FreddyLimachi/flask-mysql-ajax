@@ -116,15 +116,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-DELIMITER $$
-CREATE PROCEDURE last_client ()
-BEGIN
-    SELECT id FROM clients ORDER BY id DESC LIMIT 1;
-END $$
-DELIMITER ;
-
-
-/* Procedimientos almacenados para la tabla de historial*/
+/* Procedimientos almacenados para la tabla de pagos*/
 
 DELIMITER $$
 CREATE PROCEDURE upload_payment (idP VARCHAR(10),yearP VARCHAR(10),monthP VARCHAR(10))
@@ -171,6 +163,13 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE last_client ()
+BEGIN
+    SELECT id FROM clients ORDER BY id DESC LIMIT 1;
+END $$
+DELIMITER ;
+
 
 /* crear un usuario */
-INSERT INTO login VALUES (null,'admin','admin');
+INSERT INTO login VALUES (null,'admin','');

@@ -9,7 +9,6 @@ from routes.pages import pages
 
 app = Flask(__name__)
 
-app.secret_key = 'my_secret_key'
 
 # Rutas para la sección de autenticaciones y contraseñas
 app.register_blueprint(sessions)
@@ -24,13 +23,17 @@ app.register_blueprint(clients)
 app.register_blueprint(histories)
 
 
-# Settings
-debug = True
+# Settings for a developer
+app.secret_key = 'my_secret_key'
 
-host = '0.0.0.0'
+app.env = 'development'
 
-port = '5000'
+app.debug = True
+
+app.host = '0.0.0.0'
+
+app.port = '5000'
 
 
 if __name__ == "__main__":
-    app.run(debug=debug, host=host, port=port)
+    app.run()
