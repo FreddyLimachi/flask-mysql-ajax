@@ -172,4 +172,4 @@ DELIMITER ;
 
 
 /* crear un usuario */
-INSERT INTO login VALUES (null,'admin','');
+INSERT INTO login VALUES (null,'admin','admin');

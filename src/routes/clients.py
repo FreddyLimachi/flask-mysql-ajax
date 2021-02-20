@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from models.database import Data
+from src.models.database import Data
 
 clients = Blueprint('clients', __name__, template_folder='templates', static_folder='static')
 

@@ -1,14 +1,15 @@
 
 from flask import Flask
+from dotenv import load_dotenv
+from src.routes.sessions import sessions
+from src.routes.clients import clients
+from src.routes.histories import histories
+from src.routes.pages import pages
+import os
 
-from routes.sessions import sessions
-from routes.clients import clients
-from routes.histories import histories
-from routes.pages import pages
-
+load_dotenv() # Inicializando las variables de entorno
 
 app = Flask(__name__)
-
 
 # Rutas para la sección de autenticaciones y contraseñas
 app.register_blueprint(sessions)
@@ -23,16 +24,10 @@ app.register_blueprint(clients)
 app.register_blueprint(histories)
 
 
-# Settings for a developer
-app.secret_key = 'my_secret_key'
+# Configuraciones almacenadas en variables de entorno
+app.secret_key = os.getenv('SECRET_KEY')
 
-app.env = 'development'
-
-app.debug = True
-
-app.host = '0.0.0.0'
-
-app.port = '5000'
+app.port = os.getenv('PORT')
 
 
 if __name__ == "__main__":

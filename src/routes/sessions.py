@@ -2,7 +2,7 @@
 # sessiones, login y contraseñas
 
 from flask import request, url_for, session, redirect, flash, Blueprint
-from models.database import Data
+from src.models.database import Data
 
 sessions = Blueprint('sessions',__name__, template_folder='templates', static_folder='static')
 

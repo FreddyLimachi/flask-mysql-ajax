@@ -4,7 +4,6 @@ from flask import render_template, request, url_for, session, redirect, Blueprin
 pages = Blueprint('pages', __name__, template_folder='templates', static_folder='static')
 
 
-
 @pages.app_errorhandler(404)
 def page_not_found(err): # La pagina no existe
     return render_template('errors/404.html'), 404
